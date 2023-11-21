@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model usuario {
+  id       String  @id @default(cuid())
+  nombre   String?
+  email    String? @unique
+  password String?
+  imagen   String?
+}
+
+model gruposMusculares {
+  id         String       @id @default(cuid())
+  nombre     String       @unique
+  imagen     String?
+  ejercicios ejercicios[]
+}
+
+model ejercicios {
+  id              String           @id @default(cuid())
+  nombre          String?
+  url_video       Bytes?
+  equipamiento    String?
+  descripcion     String?
+  grupoMuscularId String
+  grupoMuscular   gruposMusculares @relation(fields: [grupoMuscularId], references: [id])
+
+  @@index([grupoMuscularId])
+}
+
+model equipamientos {
+  id       String  @id @default(cuid())
+  nombre   String
+  url_foto String?
+}
