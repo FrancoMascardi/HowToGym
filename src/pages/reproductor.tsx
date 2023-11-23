@@ -25,4 +25,4 @@ const VideoPlayer = () => {
     );
 };
 
-export default VideoPlayer; //aca hay un error, me dice que no es un componente react
+export default VideoPlayer; 
