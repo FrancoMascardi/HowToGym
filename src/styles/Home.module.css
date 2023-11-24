@@ -1,24 +1,50 @@
 .container {
-    width: min(90vw, 600px);
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
+  width: min(90vw, 600px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  padding: 1rem;
+  margin: 20px;
+  outline-offset: -10px;
 }
-  
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid #61ff00;
+  border-left: 2px solid #61ff00;
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid #61ff00;
+  border-right: 2px solid #61ff00;
+}
+
 .hovered {
-    fill: #61FF00;
-    transition: fill 0.2s linear;
-    cursor: pointer;
-} 
+  fill: #61ff00;
+  transition: fill 0.2s linear;
+  cursor: pointer;
+}
 
 .muscle {
-    fill: #666666;
+  fill: #666666;
 }
 
 .clickableMuscle {
-    fill: #666666;
-    transition: fill 0.2s linear;
+  fill: #666666;
+  transition: fill 0.2s linear;
 }

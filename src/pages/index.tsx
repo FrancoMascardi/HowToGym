@@ -1,8 +1,8 @@
-import { SiluetaHumano } from '@/components/SiluetaHumano'
-import { useEffect, useState } from 'react';
-import NavBar from '@/components/NavBar';
+import { SiluetaHumano } from "@/components/SiluetaHumano";
+import { useEffect, useState } from "react";
+import NavBar from "@/components/NavBar";
 import styles from "../styles/Home.module.css";
-import Image from 'next/image';
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -10,19 +10,24 @@ export default function Home() {
     muscle: "",
     equipment: "",
   });
-  const [equipments, setEquipments] = useState([{
-    nombre: "",
-    url_foto: ""
-  }]);
+  const [equipments, setEquipments] = useState([
+    {
+      nombre: "",
+      url_foto: "",
+    },
+  ]);
   const [step, setStep] = useState(1);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const equipamientosData = await fetch("http://localhost:3000/api/equipamiento", {
-          method: "GET"
-        })
+        const equipamientosData = await fetch(
+          "http://localhost:3000/api/equipamiento",
+          {
+            method: "GET",
+          }
+        );
 
         if (!equipamientosData.ok) {
           throw new Error("Fetching error");
@@ -45,7 +50,10 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ muscle: selectedData.muscle, equipment: selectedData.equipment }),
+      body: JSON.stringify({
+        muscle: selectedData.muscle,
+        equipment: selectedData.equipment,
+      }),
     })
       .then(async (response) => {
         if (response.ok) {
@@ -64,8 +72,7 @@ export default function Home() {
       .catch((error) => {
         console.error("Error:", error);
       });
-
-  }
+  };
 
   const handleSelectMuscle = (muscle: string) => {
     setSelectedData({ ...selectedData, muscle });
@@ -73,9 +80,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-between min-h-screen">
+    <div className="flex flex-col justify-between min-h-screen items-center">
       <NavBar />
-      <div className={styles.container}>
+      <div className={styles.container + " bg-[#595555]"}>
         {step === 1 && (
           <>
             <h1 className="font-bold text-2xl mb-6">Elige un musculo</h1>
@@ -85,18 +92,25 @@ export default function Home() {
         {step === 2 && (
           <>
             <h1 className="font-bold text-2xl mb-6">Elige tu equipamiento</h1>
-            <div className="grid grid-cols-2 gap-4"> {/* Adjust the number of columns as needed */}
+            <div className="grid grid-cols-2 gap-4">
+              {" "}
+              {/* Adjust the number of columns as needed */}
               {equipments.map((equipment, index) => (
-                <button onClick={() => handleSelectEquipment(equipment.nombre)}>
-                  <div key={index} className="p-4 border border-gray-300 rounded-md">
-                    <h2 className="font-semibold text-lg">{equipment.nombre}</h2>
+                <button
+                  onClick={() => handleSelectEquipment(equipment.nombre)}
+                  key={index}
+                >
+                  <div key={index} className="rounded-sm relative">
+                    <h2 className="font-semibold text-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#595555] px-6 py-2 rounded-full">
+                      {equipment.nombre}
+                    </h2>
                     {equipment.url_foto ? (
                       <Image
                         src={equipment.url_foto}
                         alt={equipment.nombre}
                         width={200} // Set the desired width
                         height={200} // Set the desired height
-                        className="mt-2"
+                        className="mt-2 object-cover rounded-lg"
                       />
                     ) : (
                       <p>No photo available</p>
@@ -109,5 +123,5 @@ export default function Home() {
         )}
       </div>
     </div>
-  )
+  );
 }
