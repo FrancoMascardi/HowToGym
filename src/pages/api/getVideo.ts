@@ -1,3 +1,5 @@
+//estaba bugged url-video, ante las dudas recetear siempre antes
+//estaria piola (hacer mañana o el finde) poner los titulos de los ejercicios por back y apis (para practicar)
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 
